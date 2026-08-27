@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>星网博客</title>
+	<link rel="icon" type="image/png" href="Blogicon.png">
+	<style>
+		:root {
+			color-scheme: dark;
+		}
+
+		html,
+		body {
+			min-height: 100%;
+			margin: 0;
+		}
+
+		body {
+			background-color: #080e14;
+			color: #dfdada;
+			font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+		}
+
+		main {
+			width: 100%;
+			text-align: center;
+		}
+
+		.blog-list {
+			display: flex;
+			flex-direction: column;
+			gap: 24px;
+			align-items: center;
+			padding: 0 16px 32px;
+		}
+
+		.blog-item {
+			box-sizing: border-box;
+			width: 100%;
+			max-width: 280px;
+			padding: 16px;
+			border: 1px solid #263b52;
+			background-color: #0d1b2b;
+		}
+
+		.blog-image {
+			display: block;
+			width: 100%;
+			height: 180px;
+			object-fit: contain;
+			background-color: #142b43;
+		}
+
+		.blog-text {
+			box-sizing: border-box;
+			max-height: 220px;
+			margin-top: 12px;
+			padding: 12px;
+			border: 1px solid #263b52;
+			color: #dfdada;
+			line-height: 1.7;
+			font-size: 14px;
+			text-align: left;
+			overflow-y: auto;
+			user-select: none;
+		}
+
+		html.mobile body {
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<h1>星网博客</h1>
+		<section class="blog-list" aria-label="博客内容">
+			<article class="blog-item">
+				<img class="blog-image" src="BP1/BP.png" >
+				<div class="blog-text" aria-readonly="true">你好，这是由Longhorn_904搭建的个人博客</div>
+			</article>
+			<article class="blog-item">
+				<img class="blog-image" src="BP2/BP.png" >
+				<div class="blog-text" aria-readonly="true">当地时间8月1号，俄罗斯首都莫斯科市中心的一家餐厅发生了爆炸事件，俄罗斯国家反恐委员会表示，这起事故是自制爆炸装置的爆炸所致。该委员会称一名女子企图携带自制爆炸装置闯入餐厅，被餐厅的保安阻拦，随后爆炸装置启动，该女子和保安当场死亡，此外还造成了一名顾客死亡。截至目前，这起事件已经造成3人死亡，21人受伤。据悉，三名死者为维亚切斯拉夫•巴兰尼科夫（Вячеслав Баранников），安东·尤丁采夫（Антон Юдинцев），尼基塔·布亚诺夫（Никита Буянов）</div>
+			</article>
+			<article class="blog-item">
+				<img class="blog-image" src="BP3/BP.png" >
+				<div class="blog-text" aria-readonly="true">博客app安卓端已开发，未开放</div>
+				</div>
+			</article>
+			<article class="blog-item">
+				<img class="blog-image" src="BP4/BP.png" >
+				<div class="blog-text" aria-readonly="true">个人网站星网正在开发，开发完毕会开放</div>
+			</article>
+			<article class="blog-item">
+				<img class="blog-image" src="BP5/BP.png" >
+				<div class="blog-text" aria-readonly="true">测试文本</div>
+			</article>
+		</section>
+	</main>
+	<script>
+		function updateDeviceType() {
+			const mobileUserAgent = /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(navigator.userAgent);
+			const mobileScreen = window.matchMedia("(max-width: 768px)").matches;
+			const isMobile = mobileUserAgent || mobileScreen;
+
+			document.documentElement.classList.toggle("mobile", isMobile);
+			document.documentElement.dataset.device = isMobile ? "mobile" : "desktop";
+			window.isMobile = isMobile;
+		}
+
+		updateDeviceType();
+		window.addEventListener("resize", updateDeviceType);
+	</script>
+</body>
+</html>
