@@ -17,7 +17,10 @@
 		}
 
 		body {
-			background-color: #080e14;
+			background-color: #1a2a3a;
+			background-image: linear-gradient(to bottom, #10293d 0 86px, #080e14 86px);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
 			color: #dfdada;
 			font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
 		}
@@ -27,78 +30,171 @@
 			text-align: center;
 		}
 
-		.blog-list {
+		.site-header {
+			box-sizing: border-box;
 			display: flex;
-			flex-direction: column;
-			gap: 24px;
 			align-items: center;
-			padding: 0 16px 32px;
+			gap: 16px;
+			width: 100%;
+			height: 86px;
+			padding: 0 16px;
+			text-align: left;
+		}
+
+		.site-header img {
+			width: 70px;
+			height: 70px;
+		}
+
+		.site-header h1 {
+			margin: 0;
+		}
+
+		.blog-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, 320px);
+			justify-content: center;
+			gap: 12px;
+			padding: 16px 0 32px;
 		}
 
 		.blog-item {
 			box-sizing: border-box;
-			width: 100%;
-			max-width: 280px;
-			padding: 16px;
+			width: min(320px, 100%);
+			height: 400px;
+			justify-self: center;
+			display: flex;
+			flex-direction: column;
+			padding: 0;
 			border: 1px solid #263b52;
 			background-color: #0d1b2b;
+		}
+
+		.blog-image-frame {
+			width: min(320px, 100%);
+			aspect-ratio: 4 / 3;
+			height: auto;
+			flex-shrink: 0;
+			margin: 0 auto;
+			overflow: hidden;
+			background-color: #142b43;
 		}
 
 		.blog-image {
 			display: block;
 			width: 100%;
-			height: 180px;
+			height: 100%;
 			object-fit: contain;
-			background-color: #142b43;
 		}
 
 		.blog-text {
 			box-sizing: border-box;
-			max-height: 220px;
-			margin-top: 12px;
-			padding: 12px;
+			flex: 1;
+			min-height: 0;
+			width: 100%;
+			padding: 12px 16px;
 			border: 1px solid #263b52;
+			border-width: 1px 0 0;
 			color: #dfdada;
 			line-height: 1.7;
 			font-size: 14px;
 			text-align: left;
 			overflow-y: auto;
+			overflow-wrap: anywhere;
 			user-select: none;
+		}
+
+		.like-button {
+			box-sizing: border-box;
+			width: 100%;
+			min-height: 40px;
+			padding: 8px 16px;
+			border: 0;
+			border-top: 1px solid #263b52;
+			background-color: #102238;
+			color: #dfdada;
+			font: inherit;
+			text-align: left;
+			cursor: pointer;
+		}
+
+		.like-button:hover,
+		.like-button.is-liked {
+			background-color: #183c62;
+			color: #7fc4ff;
 		}
 
 		html.mobile body {
 			font-size: 14px;
 		}
+
+		@media (max-width: 768px) {
+			.blog-list {
+				grid-template-columns: 1fr;
+			}
+		}
 	</style>
 </head>
 <body>
 	<main>
-		<h1>星网博客</h1>
+		<header class="site-header">
+			<img src="BlogLogo.png" alt="博客图标" width="100" height="100">
+			<h1>星网博客</h1>
+		</header>
 		<section class="blog-list" aria-label="博客内容">
 			<article class="blog-item">
-				<img class="blog-image" src="BP1/BP.png" >
+				<div class="blog-image-frame">
+					<img class="blog-image" src="BP1/BP.png" alt="博客图片一">
+				</div>
 				<div class="blog-text" aria-readonly="true">你好，这是由Longhorn_904搭建的个人博客</div>
 			</article>
 			<article class="blog-item">
-				<img class="blog-image" src="BP2/BP.png" >
+				<div class="blog-image-frame">
+					<img class="blog-image" src="BP2/BP.png" alt="博客图片二">
+				</div>
 				<div class="blog-text" aria-readonly="true">当地时间8月1号，俄罗斯首都莫斯科市中心的一家餐厅发生了爆炸事件，俄罗斯国家反恐委员会表示，这起事故是自制爆炸装置的爆炸所致。该委员会称一名女子企图携带自制爆炸装置闯入餐厅，被餐厅的保安阻拦，随后爆炸装置启动，该女子和保安当场死亡，此外还造成了一名顾客死亡。截至目前，这起事件已经造成3人死亡，21人受伤。据悉，三名死者为维亚切斯拉夫•巴兰尼科夫（Вячеслав Баранников），安东·尤丁采夫（Антон Юдинцев），尼基塔·布亚诺夫（Никита Буянов）</div>
 			</article>
 			<article class="blog-item">
-				<img class="blog-image" src="BP3/BP.png" >
-				<div class="blog-text" aria-readonly="true">博客app安卓端已开发，未开放</div>
+				<div class="blog-image-frame">
+					<img class="blog-image" src="BP3/BP.png" alt="博客图片三">
 				</div>
+				<div class="blog-text" aria-readonly="true">博客app安卓端已开发，未开放</div>
 			</article>
 			<article class="blog-item">
-				<img class="blog-image" src="BP4/BP.png" >
+				<div class="blog-image-frame">
+					<img class="blog-image" src="BP4/BP.png" alt="博客图片四">
+				</div>
 				<div class="blog-text" aria-readonly="true">个人网站星网正在开发，开发完毕会开放</div>
 			</article>
 			<article class="blog-item">
-				<img class="blog-image" src="BP5/BP.png" >
+				<div class="blog-image-frame">
+					<img class="blog-image" src="BP5/BP.png" alt="博客图片五">
+				</div>
+				<div class="blog-text" aria-readonly="true">测试文本</div>
+			</article>
+				<article class="blog-item">
+				<div class="blog-image-frame">
+					<img class="blog-image" src="BP6/BP.png" alt="博客图片六">
+				</div>
+				<div class="blog-text" aria-readonly="true">测试文本</div>
+			</article>
+				<article class="blog-item">
+				<div class="blog-image-frame">
+					<img class="blog-image" src="BP7/BP.png" alt="博客图片七">
+				</div>
 				<div class="blog-text" aria-readonly="true">测试文本</div>
 			</article>
 		</section>
 	</main>
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 	<script>
+		const supabaseUrl = "https://avmlbytwypzatvbneotx.supabase.co";
+		const supabaseKey = "sb_publishable_Av7GoC0UaZSNfY6J66Jb7g_d6TqDppg";
+		const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+		const likeVersion = "v1";
+		const likeStorageKey = `blog-likes-${likeVersion}`;
+		const localLikes = JSON.parse(localStorage.getItem(likeStorageKey) || "{}");
+
 		function updateDeviceType() {
 			const mobileUserAgent = /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(navigator.userAgent);
 			const mobileScreen = window.matchMedia("(max-width: 768px)").matches;
@@ -111,6 +207,62 @@
 
 		updateDeviceType();
 		window.addEventListener("resize", updateDeviceType);
+
+		document.querySelectorAll(".blog-item").forEach((item, index) => {
+			const postId = `post-${index + 1}`;
+			const button = document.createElement("button");
+			button.className = "like-button";
+			button.type = "button";
+			button.disabled = supabaseKey === "在这里粘贴 Publishable key";
+
+			function renderLike(count) {
+				const liked = localLikes[postId] === true;
+				button.textContent = `${liked ? "♥" : "♡"} 点赞 ${count}`;
+				button.classList.toggle("is-liked", liked);
+				button.setAttribute("aria-pressed", String(liked));
+			}
+
+			async function loadLikes() {
+				const { data, error } = await supabaseClient
+					.from("post_likes")
+					.select("like_count")
+					.eq("post_id", postId)
+					.maybeSingle();
+
+				if (error) {
+					button.textContent = "♡ 点赞暂不可用";
+					console.error("读取点赞数失败：", error);
+					return 0;
+				}
+				return data?.like_count || 0;
+			}
+
+			button.addEventListener("click", async () => {
+				button.disabled = true;
+				const liked = localLikes[postId] === true;
+				const currentCount = await loadLikes();
+				const nextCount = Math.max(0, currentCount + (liked ? -1 : 1));
+				const { error } = await supabaseClient
+					.from("post_likes")
+					.upsert({ post_id: postId, like_count: nextCount });
+
+				if (error) {
+					console.error("保存点赞数失败：", error);
+				} else {
+					localLikes[postId] = !liked;
+					localStorage.setItem(likeStorageKey, JSON.stringify(localLikes));
+					renderLike(nextCount);
+				}
+				button.disabled = false;
+			});
+
+			item.appendChild(button);
+			if (!button.disabled) {
+				loadLikes().then(renderLike);
+			} else {
+				button.textContent = "请先填写 Supabase Publishable key";
+			}
+		});
 	</script>
 </body>
 </html>
