@@ -219,53 +219,27 @@
 
 		async function loadPosts() {
 			const blogList = document.querySelector(".blog-list");
-			const githubApiRoot = "https://api.github.com/repos/longhorn904/xwck904.github.io/contents/BP";
-			const githubPageRoot = "https://longhorn904.github.io/xwck904.github.io/BP";
-
-			function decodeText(base64Text) {
-				const bytes = Uint8Array.from(atob(base64Text.replace(/\n/g, "")), (character) => character.charCodeAt(0));
-				return new TextDecoder("utf-8").decode(bytes);
-			}
+			const postFolders = ["1", "2"];
 
 			try {
-				const response = await fetch(githubApiRoot);
-				if (!response.ok) {
-					throw new Error(`读取帖子失败：${response.status}`);
-				}
-				const folders = await response.json();
-				const posts = await Promise.all(folders
-					.filter((entry) => entry.type === "dir" && /^\d+$/.test(entry.name))
-					.map(async (folder) => {
-						const folderResponse = await fetch(folder.url);
-						if (!folderResponse.ok) {
-							return null;
-						}
-						const files = await folderResponse.json();
-						const htmlFile = files.find((file) => file.name === "BP.html");
-						const textFile = files.find((file) => file.name === "text.txt");
-						const coverFile = files.find((file) => file.name === "cover.png");
-						if (!htmlFile) {
-							return null;
-						}
-						let text = folder.name;
-						if (textFile) {
-							const textResponse = await fetch(textFile.url);
-							if (textResponse.ok) {
-								const textData = await textResponse.json();
-								text = decodeText(textData.content).trim() || folder.name;
-							}
-						}
-						return {
-							folder: folder.name,
-							text,
-							cover: coverFile ? `BP/${encodeURIComponent(folder.name)}/cover.png` : null,
-							html: `${githubPageRoot}/${encodeURIComponent(folder.name)}/BP.html`
-						};
-					}));
+				const posts = await Promise.all(postFolders.map(async (folder) => {
+					const folderPath = `BP/${encodeURIComponent(folder)}`;
+					const textResponse = await fetch(`${folderPath}/text.txt`);
+					const text = textResponse.ok ? (await textResponse.text()).trim() || folder : folder;
+					const htmlResponse = await fetch(`${folderPath}/BP.html`);
+					if (!htmlResponse.ok) {
+						return null;
+					}
+					return {
+						folder,
+						text,
+						cover: `${folderPath}/cover.png`,
+						html: `${folderPath}/BP.html`
+					};
+				}));
 				posts.sort((first, second) => Number(second.folder) - Number(first.folder));
 
 				posts.filter(Boolean).forEach((post) => {
-					const folderPath = `BP/${post.folder}`;
 					const item = document.createElement("article");
 					item.className = "blog-item";
 					item.tabIndex = 0;
@@ -304,7 +278,7 @@
 				});
 			} catch (error) {
 				const message = document.createElement("p");
-				message.textContent = "无法读取 GitHub 的 BP 文件夹，请检查仓库地址或网络连接。";
+				message.textContent = "无法读取 BP 文件夹，请检查文件是否存在。";
 				blogList.appendChild(message);
 				console.error(error);
 			}
