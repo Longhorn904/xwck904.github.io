@@ -243,7 +243,7 @@
 				}
 				const folders = await response.json();
 				const posts = await Promise.all(folders
-					.filter((entry) => entry.type === "dir" && /^\d{4}_\d{2}_\d{2}_.+$/.test(entry.name))
+					.filter((entry) => entry.type === "dir" && /^\d+$/.test(entry.name))
 					.map(async (folder) => {
 						const folderResponse = await fetch(folder.url);
 						if (!folderResponse.ok) {
@@ -271,7 +271,7 @@
 							html: `${githubPageRoot}/${encodeURIComponent(folder.name)}/BP.html`
 						};
 					}));
-				posts.sort((first, second) => second.folder.localeCompare(first.folder));
+				posts.sort((first, second) => Number(second.folder) - Number(first.folder));
 
 				posts.filter(Boolean).forEach((post) => {
 					const folderPath = `BP/${post.folder}`;
