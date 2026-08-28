@@ -54,10 +54,10 @@
 			box-sizing: border-box;
 			display: grid;
 			grid-template-columns: repeat(3, minmax(0, 1fr));
-			gap: 12px;
-			width: min(100% - 32px, 960px);
+			gap: 0;
+			width: min(100% - 32px, 360px);
 			margin: 0 auto;
-			padding: 8px 0 20px;
+			padding: 0 0 20px;
 		}
 
 		.navigation-button {
@@ -67,14 +67,15 @@
 			justify-content: center;
 			gap: 10px;
 			min-width: 0;
-			min-height: 72px;
+			aspect-ratio: 1;
+			min-height: 0;
 			padding: 10px 14px;
 			border: 1px solid #31506c;
 			border-radius: 6px;
 			background-color: #102238;
 			color: #dfdada;
 			font: inherit;
-			font-size: 16px;
+			font-size: clamp(14px, 4vw, 18px);
 			font-weight: 600;
 			text-decoration: none;
 			transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
@@ -166,15 +167,13 @@
 
 		@media (max-width: 768px) {
 			.site-navigation {
-				gap: 6px;
-				padding: 4px 0 14px;
+				padding-bottom: 14px;
 			}
 
 			.navigation-button {
 				gap: 4px;
-				min-height: 48px;
 				padding: 6px 4px;
-				font-size: 13px;
+				font-size: clamp(12px, 4vw, 16px);
 				white-space: nowrap;
 			}
 
